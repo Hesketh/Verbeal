@@ -1,11 +1,15 @@
 cmake_minimum_required(VERSION 3.28)
-project(Verbeal LANGUAGES CXX)
+project(Verbeal LANGUAGES CXX VERSION 1.0.0.0 DESCRIPTION "Roguelike Word Game" HOMEPAGE_URL "verbeal.com")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
+# Versioning
+configure_file("BuildConfig.h.in" "BuildConfig.h")
+
+# Fetch Dependencies
 include(FetchContent)
 
-# Fetch spdlog
+## Fetch spdlog
 FetchContent_Declare(spdlog
     GIT_REPOSITORY https://github.com/gabime/spdlog.git
     GIT_TAG v1.12.0
@@ -13,7 +17,7 @@ FetchContent_Declare(spdlog
     EXCLUDE_FROM_ALL)
 FetchContent_MakeAvailable(spdlog)
 
-# Fetch nlohmann/json
+## Fetch nlohmann/json
 FetchContent_Declare(nlohmann_json
     GIT_REPOSITORY https://github.com/nlohmann/json.git
     GIT_TAG v3.11.3
@@ -21,7 +25,7 @@ FetchContent_Declare(nlohmann_json
     EXCLUDE_FROM_ALL)
 FetchContent_MakeAvailable(nlohmann_json)
 
-# Fetch SFML
+## Fetch SFML
 include(FetchContent)
 FetchContent_Declare(SFML
     GIT_REPOSITORY https://github.com/SFML/SFML.git
@@ -31,7 +35,7 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-# Fetch ImGui
+## Fetch ImGui
 FetchContent_Declare(ImGui
     GIT_REPOSITORY https://github.com/ocornut/imgui
     GIT_TAG v1.91.1
@@ -49,7 +53,8 @@ FetchContent_Declare(ImGui-SFML
     SYSTEM)
 FetchContent_MakeAvailable(ImGui-SFML)
 
-add_executable(Verbeal src/main.cpp)
+# Compiler and Linker
+add_executable(Verbeal "src/main.cpp" "src/Application.h" "src/Application.cpp")
 target_compile_features(Verbeal PRIVATE cxx_std_17)
 target_link_libraries(Verbeal PRIVATE SFML::Graphics spdlog::spdlog ImGui-SFML::ImGui-SFML)
-target_include_directories(Verbeal PRIVATE ${nlohmann_json_SOURCE_DIR}/include)
+target_include_directories(Verbeal PRIVATE ${PROJECT_BINARY_DIR} ${nlohmann_json_SOURCE_DIR}/include)
