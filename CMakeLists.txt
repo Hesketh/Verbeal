@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.28)
-project(Verbeal LANGUAGES CXX VERSION 1.0.0.0 DESCRIPTION "Roguelike Word Game" HOMEPAGE_URL "verbeal.com")
+project(Verbeal LANGUAGES CXX VERSION 0.1.0.0 DESCRIPTION "Roguelike Word Game" HOMEPAGE_URL "verbeal.com")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
@@ -54,7 +54,7 @@ FetchContent_Declare(ImGui-SFML
 FetchContent_MakeAvailable(ImGui-SFML)
 
 # Compiler and Linker
-add_executable(Verbeal "src/main.cpp" "src/Application.h" "src/Application.cpp")
+add_executable(Verbeal "src/main.cpp" "src/Application.cpp" "src/Resource.rc")
 target_compile_features(Verbeal PRIVATE cxx_std_17)
 target_link_libraries(Verbeal PRIVATE SFML::Graphics spdlog::spdlog ImGui-SFML::ImGui-SFML)
 target_include_directories(Verbeal PRIVATE ${PROJECT_BINARY_DIR} ${nlohmann_json_SOURCE_DIR}/include)
