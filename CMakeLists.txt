@@ -54,7 +54,7 @@ FetchContent_Declare(ImGui-SFML
 FetchContent_MakeAvailable(ImGui-SFML)
 
 # Compiler and Linker
-add_executable(Verbeal "src/main.cpp" "src/Application.cpp" "src/Resource.rc")
+add_executable(Verbeal "src/main.cpp" "src/Application.cpp" "src/Resource.rc" "src/io/SpecialPaths.cpp" "src/io/windows/SpecialFolders.cpp")
 target_compile_features(Verbeal PRIVATE cxx_std_17)
 target_link_libraries(Verbeal PRIVATE SFML::Graphics spdlog::spdlog ImGui-SFML::ImGui-SFML)
 target_include_directories(Verbeal PRIVATE ${PROJECT_BINARY_DIR} ${nlohmann_json_SOURCE_DIR}/include)
